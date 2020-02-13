@@ -29,7 +29,8 @@ require 'index.php';
             <legend>Player</legend>
 
             <div><?php
-                //echo $player->set_hit();
+/*                $player->set_firstDeal();
+                $player->set_hit();*/
                 ?></div>
 
         </fieldset>

@@ -55,6 +55,8 @@ class Blackjack
                 echo "You were dealt a ". $this->newcard . "<br>";
                 echo "Your total is ".implode(" ", $this->cardsonTable);
             } else {
+                echo "You were dealt a ". $this->newcard . "<br>";
+                echo "Your total is ". $_SESSION["score"] . "<br>";
                 echo "You lose!";
             }
 
