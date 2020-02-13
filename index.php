@@ -40,6 +40,8 @@ class Blackjack
             array_push($this->cardsonTable, $this->firstcard + $this->secondcard);
             echo "You were dealt a: ".$this->firstcard. " and ". $this->secondcard."<br>";
             echo "Your total is ".$this->score."<br>";
+            $_SESSION["score"] = $this->score;
+            return $_SESSION["score"];
         }
     }
     public function set_hit()
@@ -47,23 +49,26 @@ class Blackjack
         if (isset($_POST["hit"])) {
             $this->newcard = rand($this->minCard, $this->maxCard);
 
-            do {
-                $NewScore = $this->score + $this->newcard;
-            } while ($this->score < 21);
-            array_push($this->cardsonTable, $NewScore);
+            if ($_SESSION["score"] <= 21) {
+                $_SESSION["score"] = $_SESSION["score"] + $this->newcard;
+                array_push($this->cardsonTable, $_SESSION["score"]);
+                echo "You were dealt a ". $this->newcard . "<br>";
+                echo "Your total is ".implode(" ", $this->cardsonTable);
+            } else {
+                echo "You lose!";
+            }
 
-            echo $this->newcard . "<br>";
-            echo $NewScore;
+
             return $this->cardsonTable;
         }
     }
 
 
-    public function get_score($newcard)
+/*    public function get_score($newcard)
     {
         $score = $this->score + $newcard;
         echo $score;
-    }
+    }*/
 
  /*   public function hit()
     {
@@ -101,8 +106,7 @@ class Blackjack
 $player = new Blackjack();
 $player->set_firstDeal();
 $player->set_hit();
-$player->set_hit();
-$player->get_score($player->set_hit());
+//$player->get_score($player->set_hit());
 
 $dealer = new Blackjack();
 

@@ -29,7 +29,7 @@ require 'index.php';
             <legend>Player</legend>
 
             <div><?php
-                echo $player->set_hit();
+                //echo $player->set_hit();
                 ?></div>
 
         </fieldset>
