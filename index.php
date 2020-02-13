@@ -36,9 +36,10 @@ class Blackjack
         if(isset($_POST["deal"])){
             $this->firstcard = rand($this->minCard, $this->maxCard);
             $this->secondcard = rand($this->minCard, $this->maxCard);
-            array_push($this->cardsonTable, $this->firstcard, $this->secondcard);
-            echo "You were dealt a ".implode(" and ", $this->cardsonTable)."<br>";
-            echo "Your total is:". intval($this->firstcard). +intval($this->secondcard)."<br>";
+            $this->score = $this->firstcard + $this->secondcard;
+            array_push($this->cardsonTable, $this->firstcard + $this->secondcard);
+            echo "You were dealt a: ".$this->firstcard. " and ". $this->secondcard."<br>";
+            echo "Your total is ".$this->score."<br>";
         }
     }
     public function set_hit()
