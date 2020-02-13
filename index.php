@@ -48,9 +48,9 @@ class Blackjack
     {
         if (isset($_POST["hit"])) {
             $this->newcard = rand($this->minCard, $this->maxCard);
+            $_SESSION["score"] = $_SESSION["score"] + $this->newcard;
 
             if ($_SESSION["score"] <= 21) {
-                $_SESSION["score"] = $_SESSION["score"] + $this->newcard;
                 array_push($this->cardsonTable, $_SESSION["score"]);
                 echo "You were dealt a ". $this->newcard . "<br>";
                 echo "Your total is ".implode(" ", $this->cardsonTable);
