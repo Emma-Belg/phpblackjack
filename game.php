@@ -38,9 +38,10 @@ require 'index.php';
         <fieldset>
             <legend>Dealer</legend>
 <!--           --><?php
-/*            $dealer->set_firstDeal();
-            $dealer->set_hit();
-            */?>
+            $dealer = new Blackjack($dealer_name);
+            $dealer->set_firstDeal($dealer_name);
+            $dealer->set_hit($dealer_name);
+            ?>
         </fieldset>
         <button name = "deal" type="submit" value="0" class="btn btn-info">Deal!</button>
         <button name = "hit" type="submit" value="1" class="btn btn-info">Hit Me!</button>

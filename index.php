@@ -23,14 +23,23 @@ function whatIsHappening()
 class Blackjack
 {
     public $score;
+    //public $person;
     public function __construct($person)
     {
+
         if(!isset($_SESSION[$person])){
-            $_SESSION[$person] = '';
+            $_SESSION[$person] = 0;
             $this->score = $_SESSION[$person];
         }
     }
 
+/*    public function __construct($person)
+    {
+        $this->person = $person;
+        if(isset($_SESSION[$person])){
+            $this->score = $_SESSION[$person];
+        }
+    }*/
 
     public $newcard;
     public $firstcard;
@@ -40,7 +49,7 @@ class Blackjack
     public $maxCard = 11;
 
 
-    public function set_firstDeal(){
+    public function set_firstDeal($person){
         if(isset($_POST["deal"])){
             $this->firstcard = rand($this->minCard, $this->maxCard);
             $this->secondcard = rand($this->minCard, $this->maxCard);
@@ -48,30 +57,29 @@ class Blackjack
             array_push($this->cardsonTable, $this->firstcard + $this->secondcard);
             echo "The fist two cards are: ".$this->firstcard. " and ". $this->secondcard."<br>";
             echo "The total is ".$this->score."<br>";
-            $_SESSION["score"] = $this->score;
-            return $_SESSION["score"];
+            $_SESSION[$person] = $this->score;
+            return  $_SESSION[$person];
         }
     }
-    public function set_hit()
+    public function set_hit($person)
     {
-
 
         if (isset($_POST["hit"])) {
             $this->newcard = rand($this->minCard, $this->maxCard);
-            $_SESSION["score"] = $_SESSION["score"] + $this->newcard;
+            $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
 
-            if ($_SESSION["score"] <= 21) {
-                array_push($this->cardsonTable, $_SESSION["score"]);
-                echo "You were dealt a ". $this->newcard . "<br>";
-                echo "Your total is ".implode(" ", $this->cardsonTable);
+            if ($_SESSION[$person] <= 21) {
+                //array_push($this->cardsonTable, $_SESSION[$person]);
+                echo "New card is ". $this->newcard . "<br>";
+                    echo "The total is ". $_SESSION[$person];
             } else {
-                echo "You were dealt a ". $this->newcard . "<br>";
-                echo "Your total is ". $_SESSION["score"] . "<br>";
-                echo "You lose!";
+                echo "New card is ". $this->newcard . "<br>";
+                echo "Your total is ". $_SESSION[$person] . "<br>";
+                echo "Bust!";
             }
 
 
-            return $this->cardsonTable;
+          //  return $this->cardsonTable;
         }
     }
 
@@ -88,14 +96,8 @@ class Blackjack
 
 
 }
-$player = 'Player';
-$dealer = 'Dealer';
 
-$player = new Blackjack($player);
-$player->set_firstDeal();
-$player->set_hit();
-//$player->get_score($player->set_hit());
 
-$dealer = new Blackjack($dealer);
+
 
 
