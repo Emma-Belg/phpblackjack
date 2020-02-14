@@ -66,7 +66,6 @@ class Blackjack
 
     public function set_hit($person)
     {
-        if (isset($_POST["hit"])) {
             $this->newcard = rand($this->minCard, $this->maxCard);
             $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
 
@@ -79,7 +78,6 @@ class Blackjack
                 echo $person . "'s total is " . $_SESSION[$person] . "<br>";
                 echo "Bust!";
             }
-        }
         return  $_SESSION[$person];
     }
 

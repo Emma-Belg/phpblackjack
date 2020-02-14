@@ -33,8 +33,12 @@ require 'blackjack.php';
               $player_name = 'Player';
               $dealer_name = 'Dealer';
               $player = new Blackjack($player_name);
+              if (isset($_POST["deal"])) {
               $player->set_firstDeal($player_name);
-              $player->set_hit($player_name);
+              }
+              if (isset($_POST["hit"])) {
+                  $player->set_hit($player_name);
+              }
                 ?></div>
 
         </fieldset>
