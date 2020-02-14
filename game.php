@@ -28,21 +28,36 @@ require 'index.php';
         <fieldset>
             <legend>Player</legend>
 
-<!--            <div><?php
-/*                $player->set_firstDeal();
-                $player->set_hit();
-                */?></div>-->
+          <div><?php
+              $player_name = 'Player';
+              $dealer_name = 'Dealer';
+              $player = new Blackjack($player_name);
+              $player->set_firstDeal($player_name);
+              $player->set_hit($player_name);
+                ?></div>
 
         </fieldset>
 
         <fieldset>
             <legend>Dealer</legend>
-<!--           --><?php
+            <?php
             $dealer = new Blackjack($dealer_name);
             $dealer->set_firstDeal($dealer_name);
             $dealer->set_hit($dealer_name);
             ?>
         </fieldset>
+
+        <h4>Game</h4>
+        <div>
+            <?php
+            if ($player->keepscore($player_name) > $dealer->keepscore($dealer_name)){
+                echo "You win!";
+            } else {
+                echo "Dealer wins";
+            }
+            ?>
+
+        </div>
         <button name = "deal" type="submit" value="0" class="btn btn-info">Deal!</button>
         <button name = "hit" type="submit" value="1" class="btn btn-info">Hit Me!</button>
         <button name = "stand" type="submit" value="2" class="btn btn-info">Stand</button>

@@ -77,12 +77,12 @@ class Blackjack
                 echo "Your total is ". $_SESSION[$person] . "<br>";
                 echo "Bust!";
             }
-
-
-          //  return $this->cardsonTable;
         }
     }
 
+    public function keepscore($person){
+        return $_SESSION[$person];
+    }
 
 /*    public function get_score($newcard)
     {
