@@ -23,23 +23,24 @@ function whatIsHappening()
 class Blackjack
 {
     public $score;
+
     //public $person;
     public function __construct($person)
     {
 
-        if(!isset($_SESSION[$person])){
+        if (!isset($_SESSION[$person])) {
             $_SESSION[$person] = 0;
             $this->score = $_SESSION[$person];
         }
     }
 
-/*    public function __construct($person)
-    {
-        $this->person = $person;
-        if(isset($_SESSION[$person])){
-            $this->score = $_SESSION[$person];
-        }
-    }*/
+    /*    public function __construct($person)
+        {
+            $this->person = $person;
+            if(isset($_SESSION[$person])){
+                $this->score = $_SESSION[$person];
+            }
+        }*/
 
     public $newcard;
     public $firstcard;
@@ -49,50 +50,55 @@ class Blackjack
     public $maxCard = 11;
 
 
-    public function set_firstDeal($person){
-        if(isset($_POST["deal"])){
+    public function set_firstDeal($person)
+    {
+        if (isset($_POST["deal"])) {
             $this->firstcard = rand($this->minCard, $this->maxCard);
             $this->secondcard = rand($this->minCard, $this->maxCard);
             $this->score = $this->firstcard + $this->secondcard;
             array_push($this->cardsonTable, $this->firstcard + $this->secondcard);
-            echo "The fist two cards are: ".$this->firstcard. " and ". $this->secondcard."<br>";
-            echo "The total is ".$this->score."<br>";
+            echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
+            echo $person . "'s total is " . $this->score . "<br>";
             $_SESSION[$person] = $this->score;
-            return  $_SESSION[$person];
+            return $_SESSION[$person];
         }
     }
+
     public function set_hit($person)
     {
-
         if (isset($_POST["hit"])) {
             $this->newcard = rand($this->minCard, $this->maxCard);
             $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
 
             if ($_SESSION[$person] <= 21) {
                 //array_push($this->cardsonTable, $_SESSION[$person]);
-                echo "New card is ". $this->newcard . "<br>";
-                    echo "The total is ". $_SESSION[$person];
+                echo "Next card is " . $this->newcard . "<br>";
+                echo $person . "'s total is " . $_SESSION[$person];
             } else {
-                echo "New card is ". $this->newcard . "<br>";
-                echo "Your total is ". $_SESSION[$person] . "<br>";
+                echo "Next card is " . $this->newcard . "<br>";
+                echo $person . "'s total is " . $_SESSION[$person] . "<br>";
                 echo "Bust!";
             }
         }
+        return  $_SESSION[$person];
     }
 
-    public function keepscore($person){
+    public function keepscore($person)
+    {
         return $_SESSION[$person];
     }
 
-/*    public function get_score($newcard)
-    {
-        $score = $this->score + $newcard;
-        echo $score;
-    }*/
 
-    /*    public function stand($score){
-            $score = $this->score;
-        }*/
+   public function stand($person)
+    {
+        if (isset($_POST["stand"])) {
+            while ($_SESSION[$person] > 15){
+                $person->set_hit($person);
+            }
+
+        }
+
+    }
 
 
 }

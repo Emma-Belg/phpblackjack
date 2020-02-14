@@ -4,6 +4,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 require 'index.php';
+require 'blackjack.php';
 ?>
 
 <!doctype html>
@@ -43,7 +44,7 @@ require 'index.php';
             <?php
             $dealer = new Blackjack($dealer_name);
             $dealer->set_firstDeal($dealer_name);
-            $dealer->set_hit($dealer_name);
+            $dealer->stand($dealer_name);
             ?>
         </fieldset>
 
