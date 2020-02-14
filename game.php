@@ -28,15 +28,19 @@ require 'index.php';
         <fieldset>
             <legend>Player</legend>
 
-            <div><?php
+<!--            <div><?php
 /*                $player->set_firstDeal();
-                $player->set_hit();*/
-                ?></div>
+                $player->set_hit();
+                */?></div>-->
 
         </fieldset>
 
         <fieldset>
             <legend>Dealer</legend>
+<!--           --><?php
+/*            $dealer->set_firstDeal();
+            $dealer->set_hit();
+            */?>
         </fieldset>
         <button name = "deal" type="submit" value="0" class="btn btn-info">Deal!</button>
         <button name = "hit" type="submit" value="1" class="btn btn-info">Hit Me!</button>
