@@ -32,13 +32,22 @@ require 'blackjack.php';
           <div><?php
 /*              echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
               echo $person . "'s total is " . $this->score . "<br>";*/
-
-/*              $hitOutput = $player->set_hit($player_name);
-              echo  $hitOutput[0];
-              echo  $hitOutput[1];*/
+/*
+              $hitOutput = $player->set_hit($player_name);
+              $dealOutput = $player->set_firstDeal($player_name);*/
+              //echo  $hitOutput[0];
+              //echo  $hitOutput[1];
             echo $player->keepscore($player_name)
                 ?></div>
 
+
+            <h3>JUST A TEST</h3>
+            <div><?php
+                echo $player2->keepscore($player2_name)
+                ?></div>
+            <button name = "deal" type="submit" value="0" class="btn btn-warning">Deal!</button>
+            <button name = "hit" type="submit" value="1"  class="btn btn-warning">Hit Me!</button>
+            <button name = "stand" type="submit" value="2" class="btn btn-warning">Stand</button>
         </fieldset>
 
         <fieldset>
@@ -59,7 +68,7 @@ require 'blackjack.php';
 
         </div>
         <button name = "deal" type="submit" value="0" <?php /*echo $dealOutput[2] */?> class="btn btn-info">Deal!</button>
-        <button name = "hit" type="submit" value="1" <?php /*echo $hitOutput[2]*/?>  class="btn btn-info">Hit Me!</button>
+            <button name = "hit" type="submit" value="1" <?php /*echo $hitOutput[2] */?>  class="btn btn-info">Hit Me!</button>
         <button name = "stand" type="submit" value="2" class="btn btn-info">Stand</button>
         <button name = "surrender" type="submit" value="3" class="btn btn-info">Surrender</button>
         <br>

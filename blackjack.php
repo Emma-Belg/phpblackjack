@@ -5,15 +5,19 @@ $player_name = 'Player';
 $dealer_name = 'Dealer';
 $player = new Blackjack($player_name);
 $dealer = new Blackjack($dealer_name);
+$player2_name = 'Player2';
+$player2 = new Blackjack($player2_name);
 
 if (isset($_POST["newGame"])) {
     $player->newGame($player_name);
     $dealer->newGame($dealer_name);
+    $player2->newGame($player2_name);
 }
 
 //Deal button
 if (isset($_POST["deal"])) {
    $dealOutput = $player->set_firstDeal($player_name);
+    $player2->set_firstDeal($player2_name);
 }
 else {
     $dealOutput = array("", "", "");
@@ -22,6 +26,7 @@ else {
 //Hit button for players
 if (isset($_POST["hit"])) {
     $hitOutput = $player->set_hit($player_name);
+    $player2->set_hit($player2_name);
 }
 else {
     $hitOutput = array("", "", "");
