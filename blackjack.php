@@ -43,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo $win = "You win!";
             } elseif ($player->keepscore($player_name) == $dealer->keepscore($dealer_name)) {
                 echo $tie = "Tied scores - Dealer wins";
-            } elseif ($player->keepscore($player_name) > 21 && $player->keepscore($player_name) <22){
-                echo "Dealer busts". $player_name. "wins";
+            } elseif ($dealer->keepscore($dealer_name) > 21 && $player->keepscore($player_name) <22){
+                echo "Dealer busts ". $player_name. " wins";
             }
             else {
                 echo $lose = "Dealer wins";
