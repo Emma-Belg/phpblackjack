@@ -22,7 +22,7 @@ function whatIsHappening()
 
 class Blackjack
 {
-    public $score;
+    public $score = 0;
     public $person;
 
     //public $person;
@@ -118,7 +118,14 @@ class Blackjack
     }*/
 
     public function newGame($person){
-        $_SESSION[$person] = 0;
+        if (isset($_SESSION[$person])){
+            $this->score = 0;
+            $this->newcard = 0;
+            $this->minCard = 0;
+            $this->maxCard = 0;
+            $_SESSION[$person] = 0;
+        }
+
     }
 
 }
