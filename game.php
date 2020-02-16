@@ -30,15 +30,9 @@ require 'blackjack.php';
             <legend>Player</legend>
 
           <div><?php
-              $player_name = 'Player';
-              $dealer_name = 'Dealer';
-              $player = new Blackjack($player_name);
-              if (isset($_POST["deal"])) {
-              $player->set_firstDeal($player_name);
-              }
-              if (isset($_POST["hit"])) {
-                  $player->set_hit($player_name);
-              }
+
+
+
                 ?></div>
 
         </fieldset>
@@ -46,25 +40,22 @@ require 'blackjack.php';
         <fieldset>
             <legend>Dealer</legend>
             <?php
-            $dealer = new Blackjack($dealer_name);
-            $dealer->set_firstDeal($dealer_name);
-            $dealer->stand($dealer_name);
+
+
+
             ?>
         </fieldset>
 
         <h4>Game</h4>
         <div>
             <?php
-            if ($player->keepscore($player_name) > $dealer->keepscore($dealer_name)){
-                echo "You win!";
-            } else {
-                echo "Dealer wins";
-            }
+            $dealer->set_firstDeal($dealer_name);
+            $dealer->stand($dealer_name);
             ?>
 
         </div>
-        <button name = "deal" type="submit" value="0" class="btn btn-info">Deal!</button>
-        <button name = "hit" type="submit" value="1" class="btn btn-info">Hit Me!</button>
+        <button name = "deal" type="submit" value="0" <?php /*echo $player->disabled */?> class="btn btn-info">Deal!</button>
+        <button name = "hit" type="submit" value="1"                                class="btn btn-info">Hit Me!</button>
         <button name = "stand" type="submit" value="2" class="btn btn-info">Stand</button>
         <button name = "surrender" type="submit" value="3" class="btn btn-info">Surrender</button>
     </form>

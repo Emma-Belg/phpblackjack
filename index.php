@@ -60,7 +60,8 @@ class Blackjack
             echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
             echo $person . "'s total is " . $this->score . "<br>";
             $_SESSION[$person] = $this->score;
-            return $_SESSION[$person];
+            //echo implode(",", $this->cardsonTable);
+            return $this->cardsonTable;
         }
     }
 
@@ -87,13 +88,26 @@ class Blackjack
     }
 
 
-   public function stand($person)
+/*   public function stand($person)
     {
         if (isset($_POST["stand"])) {
             while ($_SESSION[$person] > 15){
                 $person->set_hit($person);
             }
+            return $_SESSION[$person];
+        }
 
+    }*/
+
+    public function stand($person)
+    {
+        if (isset($_POST["stand"])) {
+            while ($_SESSION[$person] < 15){
+                $this->newcard = rand($this->minCard, $this->maxCard);
+                $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
+            }
+            echo $person. " has ". $_SESSION[$person]."<br>";
+            return $_SESSION[$person];
         }
 
     }
