@@ -17,8 +17,9 @@ if (isset($_POST["deal"])) {
 
 //Hit button for players
 if (isset($_POST["hit"])) {
-    $player->set_hit($player_name);
+    $hitOutput = $player->set_hit($player_name);
 }
+
 
 if (isset($_POST["stand"])) {
 

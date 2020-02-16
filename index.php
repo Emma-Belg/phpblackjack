@@ -46,9 +46,12 @@ class Blackjack
     public $newcard;
     public $firstcard;
     public $secondcard;
+    public $hitting;
     public $cardsonTable = array();
     public $minCard = 1;
     public $maxCard = 11;
+    public $bust;
+    public $disabled;
 
 
     public function set_firstDeal($person)
@@ -70,17 +73,17 @@ class Blackjack
     {
             $this->newcard = rand($this->minCard, $this->maxCard);
             $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
-
+            $hitArr = array();
             if ($_SESSION[$person] <= 21) {
                 //array_push($this->cardsonTable, $_SESSION[$person]);
-                echo "Next card is " . $this->newcard . "<br>";
-                echo $person . "'s total is " . $_SESSION[$person];
+                $this->hitting = "Next card is " . $this->newcard . "<br>".$person . "'s total is " . $_SESSION[$person];
             } else {
-                echo "Next card is " . $this->newcard . "<br>";
-                echo $person . "'s total is " . $_SESSION[$person] . "<br>";
-                echo "Bust!";
+                $this->bust = "Next card is " . $this->newcard . "<br>".$person . "'s total is " . $_SESSION[$person] . "<br> Bust!";
+                $this->disabled = "disabled";
             }
-        return  $_SESSION[$person];
+            array_push($hitArr, $this->hitting, $this->bust, $this->disabled, $_SESSION[$person]);
+            implode("", $hitArr);
+            return $hitArr;
     }
 
     public function keepscore($person)
