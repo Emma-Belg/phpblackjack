@@ -40,14 +40,6 @@ require 'blackjack.php';
             echo $player->keepscore($player_name)
                 ?></div>
 
-
-            <h3>JUST A TEST</h3>
-            <div><?php
-                echo $player2->keepscore($player2_name)
-                ?></div>
-            <button name = "deal" type="submit" value="0" class="btn btn-warning">Deal!</button>
-            <button name = "hit" type="submit" value="1"  class="btn btn-warning">Hit Me!</button>
-            <button name = "stand" type="submit" value="2" class="btn btn-warning">Stand</button>
         </fieldset>
 
         <fieldset>
