@@ -51,6 +51,7 @@ require 'blackjack.php';
             <?php
             $dealer->set_firstDeal($dealer_name);
             $dealer->stand($dealer_name);
+            //endgame();
             ?>
 
         </div>
@@ -58,6 +59,8 @@ require 'blackjack.php';
         <button name = "hit" type="submit" value="1"                                class="btn btn-info">Hit Me!</button>
         <button name = "stand" type="submit" value="2" class="btn btn-info">Stand</button>
         <button name = "surrender" type="submit" value="3" class="btn btn-info">Surrender</button>
+        <br>
+        <button name = "newGame" type="submit" value="4" class="btn my-1 px-3 btn-dark">New Game</button>
     </form>
 
     <footer>

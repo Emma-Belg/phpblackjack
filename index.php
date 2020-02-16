@@ -112,6 +112,9 @@ class Blackjack
 
     }
 
+    public function newGame($person){
+        $_SESSION[$person] = 0;
+    }
 
 }
 
