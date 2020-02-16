@@ -1,4 +1,5 @@
 <?php
+//require 'index.php';
 //initiating players/dealer
 $player_name = 'Player';
 $dealer_name = 'Dealer';
@@ -12,12 +13,18 @@ if (isset($_POST["newGame"])) {
 
 //Deal button
 if (isset($_POST["deal"])) {
-    $player->set_firstDeal($player_name);
+   $dealOutput = $player->set_firstDeal($player_name);
+}
+else {
+    $dealOutput = array("", "", "");
 }
 
 //Hit button for players
 if (isset($_POST["hit"])) {
     $hitOutput = $player->set_hit($player_name);
+}
+else {
+    $hitOutput = array("", "", "");
 }
 
 
@@ -28,20 +35,18 @@ if (isset($_POST["stand"])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $endgame = array();
     if (isset($_POST["stand"])) {
-        $dealer->set_firstDeal($dealer_name);
-        if ($_SESSION[$dealer_name] < 15){
-            while ($_SESSION[$dealer_name] < 15){
-                $dealer->set_hit($dealer_name);
-            }
-        }
+        $dealer->stand($dealer_name);
         echo $dealer_name. " has ". $_SESSION[$dealer_name]."<br>";
 
         //function endgame(){
-            if ($player->keepscore($player_name) > $dealer->keepscore($dealer_name)) {
+            if ($player->keepscore($player_name) > $dealer->keepscore($dealer_name) && $player->keepscore($player_name) <22) {
                 echo $win = "You win!";
             } elseif ($player->keepscore($player_name) == $dealer->keepscore($dealer_name)) {
                 echo $tie = "Tied scores - Dealer wins";
-            } else {
+            } elseif ($player->keepscore($player_name) > 21 && $player->keepscore($player_name) <22){
+                echo "Dealer busts". $player_name. "wins";
+            }
+            else {
                 echo $lose = "Dealer wins";
             }
             //array_push($endgame, $win, $tie, $lose);

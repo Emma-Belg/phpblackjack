@@ -30,9 +30,13 @@ require 'blackjack.php';
             <legend>Player</legend>
 
           <div><?php
-              $hitOutput = $player->set_hit($player_name);
+/*              echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
+              echo $person . "'s total is " . $this->score . "<br>";*/
+
+/*              $hitOutput = $player->set_hit($player_name);
               echo  $hitOutput[0];
-              echo  $hitOutput[1];
+              echo  $hitOutput[1];*/
+            echo $player->keepscore($player_name)
                 ?></div>
 
         </fieldset>
@@ -41,7 +45,7 @@ require 'blackjack.php';
             <legend>Dealer</legend>
             <?php
 
-
+            echo $dealer->keepscore($dealer_name)
 
             ?>
         </fieldset>
@@ -49,13 +53,13 @@ require 'blackjack.php';
         <h4>Game</h4>
         <div>
             <?php
-            $dealer->set_firstDeal($dealer_name);
+            //$dealer->set_firstDeal($dealer_name);
             //endgame();
             ?>
 
         </div>
-        <button name = "deal" type="submit" value="0" class="btn btn-info">Deal!</button>
-        <button name = "hit" type="submit" value="1"  <?php echo $hitOutput[2]?> class="btn btn-info">Hit Me!</button>
+        <button name = "deal" type="submit" value="0" <?php /*echo $dealOutput[2] */?> class="btn btn-info">Deal!</button>
+        <button name = "hit" type="submit" value="1" <?php /*echo $hitOutput[2]*/?>  class="btn btn-info">Hit Me!</button>
         <button name = "stand" type="submit" value="2" class="btn btn-info">Stand</button>
         <button name = "surrender" type="submit" value="3" class="btn btn-info">Surrender</button>
         <br>

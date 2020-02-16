@@ -35,19 +35,10 @@ class Blackjack
         }
     }
 
-    /*    public function __construct($person)
-        {
-            $this->person = $person;
-            if(isset($_SESSION[$person])){
-                $this->score = $_SESSION[$person];
-            }
-        }*/
-
     public $newcard;
     public $firstcard;
     public $secondcard;
     public $hitting;
-    public $cardsonTable = array();
     public $minCard = 1;
     public $maxCard = 11;
     public $bust;
@@ -56,17 +47,22 @@ class Blackjack
 
     public function set_firstDeal($person)
     {
-        if (isset($_POST["deal"])) {
+        $cardsonTable = array();
+        if (!isset($_SESSION[$person])){
+            $_SESSION[$person] = 0;
+        }
             $this->firstcard = rand($this->minCard, $this->maxCard);
             $this->secondcard = rand($this->minCard, $this->maxCard);
             $this->score = $this->firstcard + $this->secondcard;
-            array_push($this->cardsonTable, $this->firstcard + $this->secondcard);
             echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
             echo $person . "'s total is " . $this->score . "<br>";
             $_SESSION[$person] = $this->score;
-            //echo implode(",", $this->cardsonTable);
-            return $this->cardsonTable;
+        if (isset($_SESSION[$person])){
+            $this->disabled = "disabled";
         }
+        array_push($cardsonTable, $this->firstcard + $this->secondcard, $this->disabled );
+        implode("", $cardsonTable);
+            return $cardsonTable;
     }
 
     public function set_hit($person)
@@ -92,16 +88,16 @@ class Blackjack
     }
 
 
-/*   public function stand($person)
+   public function stand($person)
     {
         if (isset($_POST["stand"])) {
-            while ($_SESSION[$person] > 15){
-                $person->set_hit($person);
-            }
+                   do {
+            $this->set_hit($person);
+        } while ($this->keepscore($person) < 15);
             return $_SESSION[$person];
         }
 
-    }*/
+    }
 
 /*    public function stand($person)
     {
@@ -117,6 +113,7 @@ class Blackjack
 
     }*/
 
+//Wanted to just set the session and score to 0 but it kept randomising cards so I had to add in all the extras
     public function newGame($person){
         if (isset($_SESSION[$person])){
             $this->score = 0;
@@ -129,6 +126,7 @@ class Blackjack
     }
 
 }
+
 
 
 
