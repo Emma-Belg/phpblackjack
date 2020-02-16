@@ -23,6 +23,7 @@ function whatIsHappening()
 class Blackjack
 {
     public $score;
+    public $person;
 
     //public $person;
     public function __construct($person)
@@ -99,18 +100,19 @@ class Blackjack
 
     }*/
 
-    public function stand($person)
+/*    public function stand($person)
     {
         if (isset($_POST["stand"])) {
-            while ($_SESSION[$person] < 15){
-                $this->newcard = rand($this->minCard, $this->maxCard);
-                $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
+            if ($_SESSION[$person] < 15){
+                while ($_SESSION[$person] < 15){
+                    $this->person->set_hit($person);
+                }
             }
             echo $person. " has ". $_SESSION[$person]."<br>";
             return $_SESSION[$person];
         }
 
-    }
+    }*/
 
     public function newGame($person){
         $_SESSION[$person] = 0;

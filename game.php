@@ -50,7 +50,6 @@ require 'blackjack.php';
         <div>
             <?php
             $dealer->set_firstDeal($dealer_name);
-            $dealer->stand($dealer_name);
             //endgame();
             ?>
 

@@ -20,12 +20,21 @@ if (isset($_POST["hit"])) {
     $player->set_hit($player_name);
 }
 
+if (isset($_POST["stand"])) {
+
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $endgame = array();
     if (isset($_POST["stand"])) {
         $dealer->set_firstDeal($dealer_name);
-        $dealer->stand($dealer_name);
+        if ($_SESSION[$dealer_name] < 15){
+            while ($_SESSION[$dealer_name] < 15){
+                $dealer->set_hit($dealer_name);
+            }
+        }
+        echo $dealer_name. " has ". $_SESSION[$dealer_name]."<br>";
+
         //function endgame(){
             if ($player->keepscore($player_name) > $dealer->keepscore($dealer_name)) {
                 echo $win = "You win!";
