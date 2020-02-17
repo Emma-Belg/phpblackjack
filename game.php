@@ -1,82 +1,128 @@
 <?php
+declare(strict_types=1);
+session_start();
+
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-require 'index.php';
-require 'blackjack.php';
-?>
+function whatIsHappening()
+{
+    echo '<h2>$_GET</h2>';
+    var_dump($_GET);
+    echo '<h2>$_POST</h2>';
+    var_dump($_POST);
+    echo '<h2>$_COOKIE</h2>';
+    var_dump($_COOKIE);
+    echo '<h2>$_SESSION</h2>';
+    var_dump($_SESSION);
+}
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css"
-          rel="stylesheet"/>
-    <title>Blackjack</title>
-</head>
-<body>
-<div class="container">
-    <h1>Blackjack Game</h1>
-    <nav>
-    </nav>
-    <form method="post">
+//whatIsHappening();
+
+class Blackjack
+{
+    public $score = 0;
+    public $person;
+
+    //public $person;
+    public function __construct($person)
+    {
+
+        if (!isset($_SESSION[$person])) {
+            $_SESSION[$person] = 0;
+            $this->score = $_SESSION[$person];
+        }
+    }
+
+    public $newcard;
+    public $firstcard;
+    public $secondcard;
+    public $hitting;
+    public $minCard = 1;
+    public $maxCard = 11;
+    public $bust;
+    public $disabled;
 
 
-        <fieldset>
-            <legend>Player</legend>
+    public function set_firstDeal($person)
+    {
+        $cardsonTable = array();
+        if (!isset($_SESSION[$person])){
+            $_SESSION[$person] = 0;
+        }
+        $this->firstcard = rand($this->minCard, $this->maxCard);
+        $this->secondcard = rand($this->minCard, $this->maxCard);
+        $this->score = $this->firstcard + $this->secondcard;
+        echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
+        echo $person . "'s total is " . $this->score . "<br>";
+        $_SESSION[$person] = $this->score;
+        if (isset($_SESSION[$person])){
+            $this->disabled = "disabled";
+        }
+        array_push($cardsonTable, $this->firstcard + $this->secondcard, $this->disabled );
+        implode("", $cardsonTable);
+        return $cardsonTable;
+    }
 
-          <div><?php
-/*              echo $person . "'s fist two cards are: " . $this->firstcard . " and " . $this->secondcard . "<br>";
-              echo $person . "'s total is " . $this->score . "<br>";*/
-/*
-              $hitOutput = $player->set_hit($player_name);
-              $dealOutput = $player->set_firstDeal($player_name);*/
-              //echo  $hitOutput[0];
-              //echo  $hitOutput[1];
-            echo $player->keepscore($player_name)
-                ?></div>
+    public function set_hit($person)
+    {
+        $this->newcard = rand($this->minCard, $this->maxCard);
+        $_SESSION[$person] = $_SESSION[$person] + $this->newcard;
+        $hitArr = array();
+        if ($_SESSION[$person] <= 21) {
+            //array_push($this->cardsonTable, $_SESSION[$person]);
+            $this->hitting = "Next card is " . $this->newcard . "<br>".$person . "'s total is " . $_SESSION[$person];
+        } else {
+            $this->bust = "Next card is " . $this->newcard . "<br>".$person . "'s total is " . $_SESSION[$person] . "<br> Bust!";
+            $this->disabled = "disabled";
+        }
+        array_push($hitArr, $this->hitting, $this->bust, $this->disabled, $_SESSION[$person]);
+        implode("", $hitArr);
+        return $hitArr;
+    }
 
-        </fieldset>
+    public function keepscore($person)
+    {
+        return $_SESSION[$person];
+    }
 
-        <fieldset>
-            <legend>Dealer</legend>
-            <?php
 
-            echo $dealer->keepscore($dealer_name)
+    public function stand($person)
+    {
+        if (isset($_POST["stand"])) {
+            do {
+                $this->set_hit($person);
+            } while ($this->keepscore($person) < 15);
+            return $_SESSION[$person];
+        }
 
-            ?>
-        </fieldset>
+    }
 
-        <h4>Game</h4>
-        <div>
-            <?php
-            //$dealer->set_firstDeal($dealer_name);
-            //endgame();
-            ?>
+    /*    public function stand($person)
+        {
+            if (isset($_POST["stand"])) {
+                if ($_SESSION[$person] < 15){
+                    while ($_SESSION[$person] < 15){
+                        $this->person->set_hit($person);
+                    }
+                }
+                echo $person. " has ". $_SESSION[$person]."<br>";
+                return $_SESSION[$person];
+            }
 
-        </div>
-        <button name = "deal" type="submit" value="0" <?php /*echo $dealOutput[2] */?> class="btn btn-info">Deal!</button>
-            <button name = "hit" type="submit" value="1" <?php /*echo $hitOutput[2] */?>  class="btn btn-info">Hit Me!</button>
-        <button name = "stand" type="submit" value="2" class="btn btn-info">Stand</button>
-        <button name = "surrender" type="submit" value="3" class="btn btn-info">Surrender</button>
-        <br>
-        <button name = "newGame" type="submit" value="4" class="btn my-1 px-3 btn-dark">New Game</button>
-    </form>
+        }*/
 
-    <footer>
-        <br>
-        <br>
-        Thank you for playing.</footer>
-    <div><?php
-        whatIsHappening();
-        ?></div>
-    <br>
-    <br>
-</div>
+//Wanted to just set the session and score to 0 but it kept randomising cards so I had to add in all the extras
+    public function newGame($person){
+        if (isset($_SESSION[$person])){
+            $this->score = 0;
+            $this->newcard = 0;
+            $this->minCard = 0;
+            $this->maxCard = 0;
+            $_SESSION[$person] = 0;
+        }
 
-</body>
-</html>
+    }
+
+}
